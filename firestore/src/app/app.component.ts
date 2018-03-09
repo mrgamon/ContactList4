@@ -21,6 +21,9 @@ export class AppComponent {
   postsCol: AngularFirestoreCollection<Post>;
   posts: Observable<Post[]>;
 
+  title:string;
+  content:string;
+
   
   constructor(private afs: AngularFirestore) {
 
@@ -30,6 +33,10 @@ export class AppComponent {
     this.postsCol = this.afs.collection('posts');
     this.posts = this.postsCol.valueChanges();
     
+  }
+
+  addPost() {
+    this.afs.collection('posts').add({'title': this.title, 'content': this.content});
   }
 
 }
