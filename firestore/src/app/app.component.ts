@@ -24,6 +24,10 @@ export class AppComponent {
   title:string;
   content:string;
 
+  postDoc: AngularFirestoreDocument<Post>;
+  post: Observable<Post>;
+  
+
   
   constructor(private afs: AngularFirestore) {
 
@@ -45,6 +49,11 @@ export class AppComponent {
 
   addPost() {
     this.afs.collection('posts').add({'title': this.title, 'content': this.content});
+  }
+
+  getPost(postId) {
+    this.postDoc = this.afs.doc('posts/'+postId);
+    this.post = this.postDoc.valueChanges();
   }
 
 }
